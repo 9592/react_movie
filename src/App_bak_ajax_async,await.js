@@ -37,17 +37,9 @@ class App extends Component
 
 
     _renderMovies = () => {
-        const movies = this.state.movies.map (movie => {
+        const movies = this.state.movies.map ((movie, index) => {
             console.log('movies:',movies)
-            //return <Movie title={movie.title} poster={movie.large_cover_image} key = {movie.id}/>
-            return <Movie
-                          title={movie.title}
-                          poster={movie.medium_cover_image}
-                          key = {movie.id}
-                          genres={movie.genres}
-                          synopsis={movie.synopsis}
-            />
-
+            return <Movie title={movie.title} poster={movie.large_cover_image} key={index}/>
             })
         return movies
         }
@@ -63,7 +55,7 @@ class App extends Component
 
     _callApi = () => {
             //console.log('fetch', fetch( 'https://yts.am/api/v2/list_movies.json?sort_by=rating'))
-            return fetch('https://yts.am/api/v2/list_movies.json?sort_by=like_count')
+            return fetch('https://yts.am/api/v2/list_movies.json?sort_by=rating')
             //위에 코드를 실행 하고 나서 아래를 해라
             //.then(response => console.log('_callAPI_log:',response))
             //reponse 체크 (json)
@@ -75,7 +67,6 @@ class App extends Component
             //.catch(err => console.log(err))
             //과거 자바스크립트
             .catch(err => console.log(err))
-
     }
 
   render() {
