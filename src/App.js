@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import Movie from './Movie';
+  
 
 class App extends Component
 {
-
+    
     state = {}
 
     //영화 정보 목록   https://yts.ag/api#list_movies
@@ -37,8 +38,7 @@ class App extends Component
 
 
     _renderMovies = () => {
-        const movies = this.state.movies.map (movie => {
-            console.log('movies:',movies)
+        const movies = this.state.movies.map (movie => {            
             //return <Movie title={movie.title} poster={movie.large_cover_image} key = {movie.id}/>
             return <Movie
                           title={movie.title}
@@ -52,10 +52,10 @@ class App extends Component
         return movies
         }
 
-
+        //
     _getMovies = async () => {
         const movies = await this._callApi()
-        console.log('_getMovies',movies)
+
         this.setState({
             movies
             })
@@ -63,7 +63,8 @@ class App extends Component
 
     _callApi = () => {
             //console.log('fetch', fetch( 'https://yts.am/api/v2/list_movies.json?sort_by=rating'))
-            return fetch('https://yts.am/api/v2/list_movies.json?sort_by=like_count')
+            //return fetch('https://yts.am/api/v2/list_movies.json?sort_by=like_count')
+            return fetch('https://yts.am/api/v2/list_movies.json?sort_by=download_count')
             //위에 코드를 실행 하고 나서 아래를 해라
             //.then(response => console.log('_callAPI_log:',response))
             //reponse 체크 (json)
@@ -79,9 +80,10 @@ class App extends Component
     }
 
   render() {
+    const {movies} = this.state;
     return (
-      <div className="App">
-          {this.state.movies ? this._renderMovies() : 'Loding'}
+      <div className={movies ? "App" : "App--loading"}>
+          {movies ? this._renderMovies() : 'Loading'}
       </div>
     );
   }
